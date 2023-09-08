@@ -16,6 +16,7 @@
 		D8505A782AAB45B90088D147 /* ProjetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A772AAB45B90088D147 /* ProjetUITestsLaunchTests.swift */; };
 		D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */; };
 		D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A862AAB56890088D147 /* MinesweeperGrid.swift */; };
+		D8505A892AAB643F0088D147 /* MinesweeperCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		D8505A772AAB45B90088D147 /* ProjetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCell.swift; sourceTree = "<group>"; };
 		D8505A862AAB56890088D147 /* MinesweeperGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperGrid.swift; sourceTree = "<group>"; };
+		D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,12 +100,11 @@
 		D8505A592AAB45B80088D147 /* Projet */ = {
 			isa = PBXGroup;
 			children = (
+				D8505A8B2AAB65A90088D147 /* Model */,
+				D8505A8A2AAB65990088D147 /* View */,
 				D8505A5A2AAB45B80088D147 /* ProjetApp.swift */,
-				D8505A5C2AAB45B80088D147 /* ContentView.swift */,
 				D8505A5E2AAB45B90088D147 /* Assets.xcassets */,
 				D8505A602AAB45B90088D147 /* Preview Content */,
-				D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */,
-				D8505A862AAB56890088D147 /* MinesweeperGrid.swift */,
 			);
 			path = Projet;
 			sourceTree = "<group>";
@@ -131,6 +132,24 @@
 				D8505A772AAB45B90088D147 /* ProjetUITestsLaunchTests.swift */,
 			);
 			path = ProjetUITests;
+			sourceTree = "<group>";
+		};
+		D8505A8A2AAB65990088D147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D8505A5C2AAB45B80088D147 /* ContentView.swift */,
+				D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D8505A8B2AAB65A90088D147 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */,
+				D8505A862AAB56890088D147 /* MinesweeperGrid.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8505A5D2AAB45B80088D147 /* ContentView.swift in Sources */,
+				D8505A892AAB643F0088D147 /* MinesweeperCellView.swift in Sources */,
 				D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */,
 				D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */,
 				D8505A5B2AAB45B80088D147 /* ProjetApp.swift in Sources */,

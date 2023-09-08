@@ -12,6 +12,7 @@ struct ProjetApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(MinesweeperGrid(mineRate: 0.2, width: 10, height: 10))
         }
     }
 }

@@ -13,13 +13,13 @@ enum CellState {
     case empty
 }
 
-class MinesweeperCell {
+class MinesweeperCell: ObservableObject {
     // Détermine si la case est une mine ou pas
-    private var isMine: Bool
+    @Published var isMine: Bool
     // Détermine si la case a été découverte ou pas
-    private var clicked: Bool
+    @Published var clicked: Bool
     // Détermine le statut de la cellule si elle n'a pas été découverte
-    private var state: CellState
+    @Published var state: CellState
     // Nombre de mine dans les voisins de la case
     private var noNeighboursMines: Int
     
