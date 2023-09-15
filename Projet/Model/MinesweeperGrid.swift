@@ -153,6 +153,7 @@ class MinesweeperGrid: ObservableObject {
                 cell.setNoNeighboursMines(noNeighboursMines: 0)
             }
         }
+        self.mines = [MinesweeperCell]()
         self.alreadyClicked = false
     }
     
