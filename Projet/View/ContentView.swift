@@ -2,22 +2,21 @@
 //  ContentView.swift
 //  Projet
 //
-//  Created by Tom Rouillon on 9/8/23.
+//  Created by Tom Rouillon on 9/15/23.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var grid: MinesweeperGrid
+    @StateObject var grid = MinesweeperGrid(mineRate: 0.12, width: 10, height: 16)
     
     var body: some View {
-        VStack(spacing: 1) {
-            ForEach(0..<grid.getHeight()) { line in
-                HStack(spacing: 1) {
-                    ForEach(0..<grid.getWidth()) { col in
-                        MinesweeperCellView(cell: grid.getCell(line: line, col: col))
-                    }
-                }
+        VStack {
+            MinesweeperGridView()
+                .environmentObject(self.grid)
+            
+            Button(action: grid.reset) {
+                Text("Recommencer")
             }
         }
     }
@@ -26,6 +25,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(MinesweeperGrid(mineRate: 0.2, width: 10, height: 10))
     }
 }

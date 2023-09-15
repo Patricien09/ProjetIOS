@@ -9,14 +9,20 @@ import SwiftUI
 
 struct MinesweeperCellView: View {
     @EnvironmentObject var grid: MinesweeperGrid
-    @State private var cellWidth = CGFloat(30)
     @ObservedObject public var cell: MinesweeperCell
+    @State private var cellWidth = CGFloat(30)
     
     var body: some View {
-        Button(action: cellTouched) {
+        Button(action: {}) {
             let text = cell.getClicked() ? String(cell.getNoNeighboursMines()) : " "
             Text("\(text)")
                 .foregroundColor(Color.white)
+                .onTapGesture {
+                    cellTouched()
+                }
+                .onLongPressGesture(minimumDuration: 0.1) {
+                    print("Long tap")
+                }
         }
         .frame(width: cellWidth, height: cellWidth)
         .background(Color.black)

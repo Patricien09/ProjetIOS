@@ -9,7 +9,7 @@ import Foundation
 
 class MinesweeperGrid: ObservableObject {
     @Published var grid : [[MinesweeperCell]]
-    @Published var alreadyClicked: Bool = false
+    private var alreadyClicked: Bool = false
     private var mineRate: Float
     private var width: Int
     private var height: Int
@@ -138,6 +138,19 @@ class MinesweeperGrid: ObservableObject {
         for neighbour in neighbours {
             self.handleClickPropagation(cell: neighbour)
         }
+    }
+    
+    func reset() -> Void {
+        for line in 0..<height {
+            for col in 0..<width {
+                let cell = self.getCell(line: line, col: col)
+                cell.setClicked(clicked: false)
+                cell.setIsMine(isMine: false)
+                cell.setState(newState: .empty)
+                cell.setNoNeighboursMines(noNeighboursMines: 0)
+            }
+        }
+        self.alreadyClicked = false
     }
     
     func isVictory() -> Bool {
