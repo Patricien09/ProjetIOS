@@ -8,9 +8,9 @@
 import Foundation
 
 class MinesweeperGrid: ObservableObject {
-    @Published var grid : [[MinesweeperCell]]
+    @Published var grid: [[MinesweeperCell]]
     @Published var alreadyClicked: Bool = false
-    @Published var nbMines = 0
+    @Published var nbMines: Int = 0
     private var mineRate: Float
     private var width: Int
     private var height: Int
@@ -123,7 +123,7 @@ class MinesweeperGrid: ObservableObject {
             self.setMines(baseCell: cell)
             self.handleClickPropagation(cell: cell)
         }
-        isVictory()
+        self.isVictory()
     }
     
     func flagCell(cell: MinesweeperCell) -> Void {
