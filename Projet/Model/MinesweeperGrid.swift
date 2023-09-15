@@ -108,6 +108,7 @@ class MinesweeperGrid: ObservableObject {
         if (alreadyClicked) {
             if (cell.getIsMine()) {
                 // TODO Fin de la partie et révélation de la grille (p-ê ?)
+                cell.setClicked(clicked: true)
                 print("Looser")
             }
 //            else if (self.isVictory()) {
