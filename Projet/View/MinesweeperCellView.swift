@@ -16,13 +16,19 @@ struct MinesweeperCellView: View {
     var body: some View {
         Button(action: cellTouched) {
             let cell = grid.getCell(line: line, col: col)
-            let text = cell.getIsMine() ? "M" : String(cell.getNoNeighboursMines())
-            Text("\(text)")
-//                .padding()
-                .foregroundColor(Color.white)
+            if(cell.getClicked())
+            {
+                cell.getIsMine() ? Image("mine") : Image(String(cell.getNoNeighboursMines()))
+            }
+            else if(cell.state == CellState.empty)
+            {
+                Image("not_clicked")
+            }
+            else {
+                cell.state == CellState.flag ? Image("flag") : Image("question_mark")
+            }
         }
         .frame(width: cellWidth, height: cellWidth)
-        .background(Color.black)
     }
     
     func cellTouched() {
