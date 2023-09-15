@@ -36,11 +36,9 @@ struct MinesweeperCellView: View {
     func getImageName(cell: MinesweeperCell) -> String {
         var imageName: String = ""
         
-        if(cell.getClicked())
-        {
+        if(cell.getClicked()) {
             imageName = cell.getIsMine() ? "mine" : String(cell.getNoNeighboursMines())
-        }
-        else {
+        } else {
             switch cell.state {
             case .empty:
                 imageName = "not_clicked"

@@ -110,8 +110,8 @@ class MinesweeperGrid: ObservableObject {
      */
     func clickCell(cell: MinesweeperCell) {
         if (alreadyClicked) {
-            if (cell.getIsMine()) {
-                // TODO Fin de la partie et révélation de la grille (p-ê ?)
+            // Fin de la partie quand l'utilisateur clique sur une mine et qu'il n'y a pas de flag ou question mark sur la cellule
+            if (cell.getIsMine() && cell.getState() == .empty) {
                 self.revealAllMines()
                 print("Looser")
                 return
@@ -123,39 +123,28 @@ class MinesweeperGrid: ObservableObject {
             self.setMines(baseCell: cell)
             self.handleClickPropagation(cell: cell)
         }
-        if(isVictory())
-        {
-            victoryScreen()
-        }
+        self.checkVictory()
     }
     
+    /**
+     * Fonction appelée lors d'un appui long
+     * Change le state de la cellule en fonction de l'état précédent
+     */
     func flagCell(cell: MinesweeperCell) -> Void {
-        if(cell.getClicked())
-        {
+        if(cell.getClicked()) {
             return
-        }
-        else if(cell.getState() == .flag)
-        {
+        } else if(cell.getState() == .flag) {
             self.nbMines += 1
             cell.setState(newState: .questionMark)
             return
-        }
-        else if(cell.getState() == .questionMark)
-        {
+        } else if(cell.getState() == .questionMark) {
             cell.setState(newState: .empty)
             return
         }
+        
         self.nbMines -= 1
         cell.setState(newState: .flag)
-        if(nbMines == 0)
-        {
-            if(isVictory()) {
-                print("Victoire")
-            }
-            else {
-                print("T'as flag des mauvaises mines")
-            }
-        }
+        self.checkVictory()
     }
     
     /**
@@ -163,6 +152,8 @@ class MinesweeperGrid: ObservableObject {
      * S'arrête quand le celulle à déjà été cliquée ou que le nombre de mines aux alentours et différent de 0
      */
     func handleClickPropagation(cell: MinesweeperCell) -> Void {
+        // Si la cellule contient un flag ou question mark, on ne fait rien
+        if (cell.getState() != .empty) { return }
         if (cell.getClicked() || cell.getNoNeighboursMines() != 0) {
             cell.setClicked(clicked: true)
             return
@@ -202,6 +193,12 @@ class MinesweeperGrid: ObservableObject {
             }
         }
         return true
+    }
+    
+    func checkVictory() -> Void {
+        if (self.isVictory()) {
+            self.victoryScreen()
+        }
     }
     
     /**
