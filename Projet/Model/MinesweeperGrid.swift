@@ -10,11 +10,11 @@ import Foundation
 class MinesweeperGrid: ObservableObject {
     @Published var grid : [[MinesweeperCell]]
     @Published var alreadyClicked: Bool = false
+    @Published var nbMines = 0
     private var mineRate: Float
     private var width: Int
     private var height: Int
     private var mines: [MinesweeperCell] = [MinesweeperCell]()
-    @Published var nbMines = 0
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -59,8 +59,8 @@ class MinesweeperGrid: ObservableObject {
             let line = Int.random(in: 0..<height)
             let cell = getCell(line: line, col: col)
             
-            // Si la cellule est déjà une mine, ou qu'elle correspond à la cellule cliquée en premier, alors on continue
-            if (cell.getIsMine() || baseCell == cell) { continue }
+            // Si la cellule contient déjà une mine, qu'elle correspond à la cellule cliquée en premier (ou qu'elle est dans son voisinage) alors on continue
+            if (cell.getIsMine() || baseCell == cell || self.getCellNeighbours(cell: cell).contains(baseCell)) { continue }
             cell.setIsMine(isMine: true)
             
             setNeighboursMines(cell: cell)
@@ -114,11 +114,8 @@ class MinesweeperGrid: ObservableObject {
                 // TODO Fin de la partie et révélation de la grille (p-ê ?)
                 self.revealAllMines()
                 print("Looser")
-            }
-//            else if (self.isVictory()) {
-//                print("Winner")
-//            }
-            else {
+                return
+            } else {
                 self.handleClickPropagation(cell: cell)
             }
         } else {
@@ -176,6 +173,35 @@ class MinesweeperGrid: ObservableObject {
     }
     
     /**
+     * Permet de déterminer si le joueur à gagner la partie ou non
+     * Pour cela, cette fonction regarde si toutes les cases contenant des mines ont été flag
+     * Il est aussi possible de gagner en découvrant toutes les cases ne contenant pas de mine, donc possible sans placer de drapeaux
+     */
+    func isVictory() -> Bool {
+        if(self.nbMines == 0) {
+            for mine in mines {
+                if(mine.getState() != .flag)
+                {
+                    return false
+                }
+            }
+        }
+        else {
+            for line in 0..<height {
+                for col in 0..<width {
+                    let cell = self.getCell(line: line, col: col)
+                    // Si la cellule n'est pas une mine et n'a pas été cliquée
+                    if(!cell.getIsMine() && !cell.getClicked())
+                    {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
+    /**
      * Reset le démineur, càd remettre toutes les valeurs des cellules par défault
      * Remet aussi alreadyClicked à false, pour replacer les mines aux premier click
      */
@@ -203,41 +229,9 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
-    /**
-     * Permet de déterminer si le joueur à gagner la partie ou non
-     * Pour cela, cette fonction regarde si toutes les cases contenant des mines ont été flag
-     * Il est aussi possible de gagner en découvrant toutes les cases ne contenant pas de mine, donc possible sans placer de drapeaux
-     */
-    func isVictory() -> Bool {
-        if(self.nbMines == 0) {
-            for mine in mines {
-                if(mine.getState() != CellState.flag)
-                {
-                    return false
-                }
-            }
-        }
-        else {
-            for line in 0..<height {
-                for col in 0..<width {
-                    let cell = self.getCell(line: line, col: col)
-                    // Si la cellule n'est pas une mine et n'a pas été cliquée
-                    if(!cell.getIsMine() && !cell.getClicked())
-                    {
-                        print("T'as pas gagné")
-                        return false
-                    }
-                }
-            }
-        }
-        print("t'as gagné")
-        return true
-    }
-    
     func getNbMines() -> Int {
         return self.nbMines
     }
-    
     func getGrid() ->[[MinesweeperCell]] {
         return self.grid
     }
