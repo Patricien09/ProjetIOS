@@ -15,6 +15,7 @@ class MinesweeperGrid: ObservableObject {
     private var width: Int
     private var height: Int
     private var mines: [MinesweeperCell] = [MinesweeperCell]()
+    @Published var nbMines = 0
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -123,7 +124,10 @@ class MinesweeperGrid: ObservableObject {
             self.setMines(baseCell: cell)
             self.handleClickPropagation(cell: cell)
         }
-        self.isVictory()
+        if(isVictory())
+        {
+            victoryScreen()
+        }
     }
     
     func flagCell(cell: MinesweeperCell) -> Void {
@@ -232,6 +236,15 @@ class MinesweeperGrid: ObservableObject {
     func getNbMines() -> Int {
         return self.nbMines
     }
+    
+    func victoryScreen() -> Void {
+        VictoryView()
+    }
+    
+    func getNbMines() -> Int {
+        return self.nbMines
+    }
+    
     func getGrid() ->[[MinesweeperCell]] {
         return self.grid
     }
