@@ -9,10 +9,10 @@ import Foundation
 
 class MinesweeperGrid: ObservableObject {
     @Published var grid : [[MinesweeperCell]]
+    @Published var alreadyClicked: Bool = false
     private var mineRate : Float = 0.2
     private var width: Int
     private var height: Int
-    @Published var alreadyClicked: Bool = false
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -30,7 +30,11 @@ class MinesweeperGrid: ObservableObject {
         self.constructGrid()
     }
     
+    /**
+     * Construit la grille, c'est-à-dire le remplissage du tableau avec des MinesweeperCell
+     */
     private func constructGrid() {
+        // Construit le tableau initial avec aucunes mines
         for _ in 0..<height {
             var line = [MinesweeperCell]()
             for _ in 0..<width {
@@ -38,7 +42,13 @@ class MinesweeperGrid: ObservableObject {
             }
             grid.append(line)
         }
-        
+    }
+    
+    /**
+     * Remplit le tableau avec les mines, en fonction du taux d'apparition et d'un nombre max di'térations
+     */
+    private func setMines(baseCellLine: Int, baseCellCol: Int) {
+        // On remplit le tableau avec les mines
         var numberOfMine = width * height * Int(mineRate * 100) / 100
         var maxIteration = width * height * 100
         while (numberOfMine > 0 && maxIteration > 0) {
@@ -47,7 +57,8 @@ class MinesweeperGrid: ObservableObject {
             let line = Int.random(in: 0..<height)
             let cell = getCell(line: line, col: col)
             
-            if (cell.getIsMine()) { continue }
+            // Si la cellule est déjà une mine, ou qu'elle correspond à la cellule cliquée en premier, alors on continue
+            if (cell.getIsMine() || (baseCellLine == line && baseCellCol == col)) { continue }
             cell.setIsMine(isMine: true)
             
             setNeighboursMines(line: line, col: col)
@@ -55,6 +66,10 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Pour tous les voisins de la cellule aux coordonnées passées en paramètre, si elle contient une mine
+     * on leurs ajoute tous +1 au compteur de mine
+     */
     private func setNeighboursMines(line: Int, col: Int) {
         let baseCell = getCell(line: line, col: col)
         if (!baseCell.getIsMine()) { return }
@@ -65,6 +80,9 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Renvoie un tableau contenant les 8 cellules voisines de la cellule aux coordonnées passées en paramètre
+     */
     func getCellNeighbours(line: Int, col: Int) -> [MinesweeperCell] {
         let minLine = max(line - 1, 0)
         let minCol = max(col - 1, 0)
@@ -80,12 +98,21 @@ class MinesweeperGrid: ObservableObject {
         return cells
     }
     
+    /**
+     * Gère le click d'une cellule
+     * C'est ici que l'on gère la victoire ou la défaite
+     */
     func clickCell(line: Int, col: Int) {
         let cell = getCell(line: line, col: col)
         cell.setClicked(clicked: true)
-        if (cell.getIsMine()) {
-            // TODO Fin de la partie et révélation de la grille (p-ê ?)
-            print("Looser")
+        if (alreadyClicked) {
+            if (cell.getIsMine()) {
+                // TODO Fin de la partie et révélation de la grille (p-ê ?)
+                print("Looser")
+            }
+        } else {
+            alreadyClicked = true
+            self.setMines(baseCellLine: line, baseCellCol: col)
         }
     }
     

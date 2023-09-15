@@ -29,7 +29,7 @@ class MinesweeperCell: ObservableObject {
         self.state = state
         self.noNeighboursMines = noNeighboursMines
     }
-    
+
     func setIsMine(isMine: Bool) -> Void {
         self.isMine = isMine
     }
