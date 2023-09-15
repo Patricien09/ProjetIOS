@@ -12,10 +12,17 @@ struct ContentView: View {
     @State private var startDate = Date()
     @State private var timeElapsed: String = "0.0"
     @State private var timer: Timer? = nil
+    @State private var selectedDifficulty: Difficulty = .inter
     
     var body: some View {
         VStack {
             Text("\(timeElapsed)")
+            
+            DifficultyPickerView(selectedDifficulty: $selectedDifficulty)
+            .onChange(of: selectedDifficulty) { test in
+                self.resetGame()
+                grid.setMineRate(newMineRate: selectedDifficulty.rawValue)
+            }
             
             MinesweeperGridView()
                 .environmentObject(grid)
