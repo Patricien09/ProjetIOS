@@ -13,6 +13,7 @@ class MinesweeperGrid: ObservableObject {
     private var mineRate: Float
     private var width: Int
     private var height: Int
+    private var mines: [MinesweeperCell] = [MinesweeperCell]()
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -62,6 +63,7 @@ class MinesweeperGrid: ObservableObject {
             cell.setIsMine(isMine: true)
             
             setNeighboursMines(cell: cell)
+            self.mines.append(cell)
             numberOfMine -= 1
         }
     }
@@ -108,7 +110,7 @@ class MinesweeperGrid: ObservableObject {
         if (alreadyClicked) {
             if (cell.getIsMine()) {
                 // TODO Fin de la partie et révélation de la grille (p-ê ?)
-                cell.setClicked(clicked: true)
+                self.revealAllMines()
                 print("Looser")
             }
 //            else if (self.isVictory()) {
@@ -152,6 +154,12 @@ class MinesweeperGrid: ObservableObject {
             }
         }
         self.alreadyClicked = false
+    }
+    
+    func revealAllMines() {
+        for mine in self.mines {
+            mine.setClicked(clicked: true)
+        }
     }
     
     func isVictory() -> Bool {

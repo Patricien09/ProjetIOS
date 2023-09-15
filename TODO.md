@@ -1,6 +1,6 @@
 // Fin et début de la partie
 // Ajout du click et de la logique derrière -> Fait
-// Ajout des images
+// Ajout des images -> Fait
 // Ajout des drapeaux (appui long)
 // Timer
 // Niveau de difficultés
