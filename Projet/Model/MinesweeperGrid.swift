@@ -15,7 +15,6 @@ class MinesweeperGrid: ObservableObject {
     private var width: Int
     private var height: Int
     private var mines: [MinesweeperCell] = [MinesweeperCell]()
-    @Published var nbMines = 0
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -239,10 +238,6 @@ class MinesweeperGrid: ObservableObject {
     
     func victoryScreen() -> Void {
         VictoryView()
-    }
-    
-    func getNbMines() -> Int {
-        return self.nbMines
     }
     
     func getGrid() ->[[MinesweeperCell]] {
