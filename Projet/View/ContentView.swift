@@ -9,16 +9,44 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var grid = MinesweeperGrid(mineRate: 0.12, width: 10, height: 16)
+    @State private var startDate = Date()
+    @State private var timeElapsed: String = "0.0"
+    @State private var timer: Timer? = nil
     
     var body: some View {
         VStack {
-            MinesweeperGridView()
-                .environmentObject(self.grid)
+            Text("\(timeElapsed)")
             
-            Button(action: grid.reset) {
+            MinesweeperGridView()
+                .environmentObject(grid)
+                .onChange(of: grid.alreadyClicked) { isFirstClick in
+                    if (isFirstClick) {
+                        self.startTimer()
+                    }
+                }
+            
+            Button(action: resetGame) {
                 Text("Recommencer")
             }
         }
+    }
+    
+    func startTimer() {
+        startDate = Date()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { tempTimer in
+            timeElapsed = String(format: "%.1f", (Date().timeIntervalSince(startDate)))
+        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resetGame() -> Void {
+        grid.reset()
+        timeElapsed = "0.0"
+        self.stopTimer()
     }
 }
 

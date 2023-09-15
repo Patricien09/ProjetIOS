@@ -9,7 +9,7 @@ import Foundation
 
 class MinesweeperGrid: ObservableObject {
     @Published var grid : [[MinesweeperCell]]
-    private var alreadyClicked: Bool = false
+    @Published var alreadyClicked: Bool = false
     private var mineRate: Float
     private var width: Int
     private var height: Int
@@ -126,6 +126,10 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Permet de propager le click d'une cellule à ses voisines et ainsi de suite
+     * S'arrête quand le celulle à déjà été cliquée ou que le nombre de mines aux alentours et différent de 0
+     */
     func handleClickPropagation(cell: MinesweeperCell) -> Void {
         if (cell.getClicked() || cell.getNoNeighboursMines() != 0) {
             cell.setClicked(clicked: true)
@@ -133,16 +137,16 @@ class MinesweeperGrid: ObservableObject {
         }
         cell.setClicked(clicked: true)
         
-        if (cell.getNoNeighboursMines() == 0) {
-            cell.setState(newState: .empty)
-        }
-        
         let neighbours = self.getCellNeighbours(cell: cell)
         for neighbour in neighbours {
             self.handleClickPropagation(cell: neighbour)
         }
     }
     
+    /**
+     * Reset le démineur, càd remettre toutes les valeurs des cellules par défault
+     * Remet aussi alreadyClicked à false, pour replacer les mines aux premier click
+     */
     func reset() -> Void {
         for line in 0..<height {
             for col in 0..<width {
@@ -157,12 +161,20 @@ class MinesweeperGrid: ObservableObject {
         self.alreadyClicked = false
     }
     
+    /**
+     * Quand la partie est finie, on révèle toutes les cases contenant une mine
+     */
     func revealAllMines() {
         for mine in self.mines {
             mine.setClicked(clicked: true)
         }
     }
     
+    /**
+     * Permet de déterminer si le joueur à gagner la partie ou non
+     * Pour cela, cette fonction regarde si toutes les cases contenant des mines ont été flag
+     * Il est aussi possible de gagner en découvrant toutes les cases ne contenant pas de mine, donc possible sans placer de drapeaux
+     */
     func isVictory() -> Bool {
         return true
     }
