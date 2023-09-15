@@ -18,7 +18,6 @@ struct MinesweeperCellView: View {
             let cell = grid.getCell(line: line, col: col)
             let text = cell.getIsMine() ? "M" : String(cell.getNoNeighboursMines())
             Text("\(text)")
-//                .padding()
                 .foregroundColor(Color.white)
         }
         .frame(width: cellWidth, height: cellWidth)

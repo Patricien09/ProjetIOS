@@ -13,7 +13,7 @@ enum CellState {
     case empty
 }
 
-class MinesweeperCell: ObservableObject {
+class MinesweeperCell: ObservableObject, Comparable {
     // Détermine si la case est une mine ou pas
     @Published var isMine: Bool
     // Détermine si la case a été découverte ou pas
@@ -22,12 +22,24 @@ class MinesweeperCell: ObservableObject {
     @Published var state: CellState
     // Nombre de mine dans les voisins de la case
     private var noNeighboursMines: Int
+    private var line: Int
+    private var col: Int
     
-    init(isMine: Bool, clicked: Bool, state: CellState, noNeighboursMines: Int) {
+    init(isMine: Bool, clicked: Bool, state: CellState, noNeighboursMines: Int, line: Int, col: Int) {
         self.isMine = isMine
         self.clicked = clicked
         self.state = state
         self.noNeighboursMines = noNeighboursMines
+        self.line = line
+        self.col = col
+    }
+    
+    static func < (lhs: MinesweeperCell, rhs: MinesweeperCell) -> Bool {
+        return false
+    }
+    
+    static func == (lhs: MinesweeperCell, rhs: MinesweeperCell) -> Bool {
+        return (lhs.getLine() == rhs.getLine() && lhs.getCol() == rhs.getCol())
     }
 
     func setIsMine(isMine: Bool) -> Void {
@@ -54,5 +66,11 @@ class MinesweeperCell: ObservableObject {
     }
     func getNoNeighboursMines() -> Int {
         return self.noNeighboursMines
+    }
+    func getLine() -> Int {
+        return self.line
+    }
+    func getCol() -> Int {
+        return self.col
     }
 }
