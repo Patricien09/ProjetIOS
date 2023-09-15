@@ -10,13 +10,11 @@ import SwiftUI
 struct MinesweeperCellView: View {
     @EnvironmentObject var grid: MinesweeperGrid
     @State private var cellWidth = CGFloat(30)
-    @State public var line: Int
-    @State public var col: Int
+    @ObservedObject public var cell: MinesweeperCell
     
     var body: some View {
         Button(action: cellTouched) {
-            let cell = grid.getCell(line: line, col: col)
-            let text = cell.getIsMine() ? "M" : String(cell.getNoNeighboursMines())
+            let text = cell.getClicked() ? String(cell.getNoNeighboursMines()) : " "
             Text("\(text)")
                 .foregroundColor(Color.white)
         }
@@ -25,6 +23,6 @@ struct MinesweeperCellView: View {
     }
     
     func cellTouched() {
-        grid.clickCell(line: line, col: col)
+        grid.clickCell(cell: cell)
     }
 }

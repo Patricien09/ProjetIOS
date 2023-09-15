@@ -15,7 +15,7 @@ struct ContentView: View {
             ForEach(0..<grid.getHeight()) { line in
                 HStack(spacing: 1) {
                     ForEach(0..<grid.getWidth()) { col in
-                        MinesweeperCellView(line: line, col: col)
+                        MinesweeperCellView(cell: grid.getCell(line: line, col: col))
                     }
                 }
             }

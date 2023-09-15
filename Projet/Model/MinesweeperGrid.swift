@@ -61,7 +61,7 @@ class MinesweeperGrid: ObservableObject {
             if (cell.getIsMine() || baseCell == cell) { continue }
             cell.setIsMine(isMine: true)
             
-            setNeighboursMines(line: line, col: col)
+            setNeighboursMines(cell: cell)
             numberOfMine -= 1
         }
     }
@@ -70,11 +70,10 @@ class MinesweeperGrid: ObservableObject {
      * Pour tous les voisins de la cellule aux coordonnées passées en paramètre, si elle contient une mine
      * on leurs ajoute tous +1 au compteur de mine
      */
-    private func setNeighboursMines(line: Int, col: Int) {
-        let baseCell = getCell(line: line, col: col)
-        if (!baseCell.getIsMine()) { return }
+    private func setNeighboursMines(cell: MinesweeperCell) {
+        if (!cell.getIsMine()) { return }
             
-        let neighbours = getCellNeighbours(line: line, col: col)
+        let neighbours = getCellNeighbours(cell: cell)
         for cell in neighbours {
             cell.setNoNeighboursMines(noNeighboursMines: cell.getNoNeighboursMines() + 1)
         }
@@ -83,7 +82,10 @@ class MinesweeperGrid: ObservableObject {
     /**
      * Renvoie un tableau contenant les 8 cellules voisines de la cellule aux coordonnées passées en paramètre
      */
-    func getCellNeighbours(line: Int, col: Int) -> [MinesweeperCell] {
+    func getCellNeighbours(cell: MinesweeperCell) -> [MinesweeperCell] {
+        let line = cell.getLine()
+        let col = cell.getCol()
+        
         let minLine = max(line - 1, 0)
         let minCol = max(col - 1, 0)
         let maxLine = min(line + 1, height - 1)
@@ -102,19 +104,39 @@ class MinesweeperGrid: ObservableObject {
      * Gère le click d'une cellule
      * C'est ici que l'on gère également la victoire ou la défaite
      */
-    func clickCell(line: Int, col: Int) {
-        let cell = getCell(line: line, col: col)
-        cell.setClicked(clicked: true)
+    func clickCell(cell: MinesweeperCell) {
         if (alreadyClicked) {
             if (cell.getIsMine()) {
                 // TODO Fin de la partie et révélation de la grille (p-ê ?)
                 print("Looser")
-            } else if (self.isVictory()) {
-                print("Winner")
+            }
+//            else if (self.isVictory()) {
+//                print("Winner")
+//            }
+            else {
+                self.handleClickPropagation(cell: cell)
             }
         } else {
             alreadyClicked = true
             self.setMines(baseCell: cell)
+            self.handleClickPropagation(cell: cell)
+        }
+    }
+    
+    func handleClickPropagation(cell: MinesweeperCell) -> Void {
+        if (cell.getClicked() || cell.getNoNeighboursMines() != 0) {
+            cell.setClicked(clicked: true)
+            return
+        }
+        cell.setClicked(clicked: true)
+        
+        if (cell.getNoNeighboursMines() == 0) {
+            cell.setState(newState: .empty)
+        }
+        
+        let neighbours = self.getCellNeighbours(cell: cell)
+        for neighbour in neighbours {
+            self.handleClickPropagation(cell: neighbour)
         }
     }
     
