@@ -14,6 +14,7 @@ class MinesweeperGrid: ObservableObject {
     private var width: Int
     private var height: Int
     private var mines: [MinesweeperCell] = [MinesweeperCell]()
+    @Published var nbMines = 0
     
     init(grid: [[MinesweeperCell]], mineRate: Float) {
         self.grid = grid
@@ -66,6 +67,7 @@ class MinesweeperGrid: ObservableObject {
             self.mines.append(cell)
             numberOfMine -= 1
         }
+        self.nbMines = self.mines.count
     }
     
     /**
@@ -124,6 +126,36 @@ class MinesweeperGrid: ObservableObject {
             self.setMines(baseCell: cell)
             self.handleClickPropagation(cell: cell)
         }
+        isVictory()
+    }
+    
+    func flagCell(cell: MinesweeperCell) -> Void {
+        if(cell.getClicked())
+        {
+            return
+        }
+        else if(cell.getState() == .flag)
+        {
+            self.nbMines += 1
+            cell.setState(newState: .questionMark)
+            return
+        }
+        else if(cell.getState() == .questionMark)
+        {
+            cell.setState(newState: .empty)
+            return
+        }
+        self.nbMines -= 1
+        cell.setState(newState: .flag)
+        if(nbMines == 0)
+        {
+            if(isVictory()) {
+                print("Victoire")
+            }
+            else {
+                print("T'as flag des mauvaises mines")
+            }
+        }
     }
     
     /**
@@ -157,6 +189,7 @@ class MinesweeperGrid: ObservableObject {
                 cell.setNoNeighboursMines(noNeighboursMines: 0)
             }
         }
+        self.nbMines = 0
         self.mines = [MinesweeperCell]()
         self.alreadyClicked = false
     }
@@ -176,7 +209,33 @@ class MinesweeperGrid: ObservableObject {
      * Il est aussi possible de gagner en découvrant toutes les cases ne contenant pas de mine, donc possible sans placer de drapeaux
      */
     func isVictory() -> Bool {
+        if(self.nbMines == 0) {
+            for mine in mines {
+                if(mine.getState() != CellState.flag)
+                {
+                    return false
+                }
+            }
+        }
+        else {
+            for line in 0..<height {
+                for col in 0..<width {
+                    let cell = self.getCell(line: line, col: col)
+                    // Si la cellule n'est pas une mine et n'a pas été cliquée
+                    if(!cell.getIsMine() && !cell.getClicked())
+                    {
+                        print("T'as pas gagné")
+                        return false
+                    }
+                }
+            }
+        }
+        print("t'as gagné")
         return true
+    }
+    
+    func getNbMines() -> Int {
+        return self.nbMines
     }
     
     func getGrid() ->[[MinesweeperCell]] {

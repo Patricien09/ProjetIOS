@@ -18,6 +18,8 @@ struct ContentView: View {
         VStack {
             Text("\(timeElapsed)")
             
+            Text("Mines restantes : \(grid.getNbMines())")
+            
             DifficultyPickerView(selectedDifficulty: $selectedDifficulty)
             .onChange(of: selectedDifficulty) { test in
                 self.resetGame()

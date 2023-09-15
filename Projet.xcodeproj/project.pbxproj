@@ -20,6 +20,7 @@
 		D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */; };
 		D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A862AAB56890088D147 /* MinesweeperGrid.swift */; };
 		D8505A892AAB643F0088D147 /* MinesweeperCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */; };
+		F976A8472AB49CE900651D24 /* VictoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F976A8462AB49CE900651D24 /* VictoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		D8505A842AAB52FC0088D147 /* MinesweeperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCell.swift; sourceTree = "<group>"; };
 		D8505A862AAB56890088D147 /* MinesweeperGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperGrid.swift; sourceTree = "<group>"; };
 		D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCellView.swift; sourceTree = "<group>"; };
+		F976A8462AB49CE900651D24 /* VictoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */,
 				D833DD1B2AB44CFE009C915B /* ContentView.swift */,
 				D833DD202AB49DF3009C915B /* DifficultyPicker.swift */,
+				F976A8462AB49CE900651D24 /* VictoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				D8505A892AAB643F0088D147 /* MinesweeperCellView.swift in Sources */,
 				D833DD212AB49DF3009C915B /* DifficultyPicker.swift in Sources */,
 				D833DD1F2AB488D2009C915B /* MinesweeperGridViewModel.swift in Sources */,
+				F976A8472AB49CE900651D24 /* VictoryView.swift in Sources */,
 				D833DD1C2AB44CFE009C915B /* ContentView.swift in Sources */,
 				D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */,
 				D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */,

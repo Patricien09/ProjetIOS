@@ -19,7 +19,7 @@ struct MinesweeperCellView: View {
                     cellTouched()
                 }
                 .onLongPressGesture(minimumDuration: 0.1) {
-                    print("Long")
+                    longTouch()
                 }
         }
         .frame(width: cellWidth, height: cellWidth)
@@ -27,6 +27,10 @@ struct MinesweeperCellView: View {
     
     func cellTouched() {
         grid.clickCell(cell: cell)
+    }
+    
+    func longTouch() {
+        grid.flagCell(cell: cell)
     }
     
     func getImageName(cell: MinesweeperCell) -> String {
