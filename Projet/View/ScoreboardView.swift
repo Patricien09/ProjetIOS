@@ -8,6 +8,7 @@
 import SwiftUI
 
 //TODO faire en sorte que l'on puisse ajouter à la fin d'une partie gagnante
+// Changer le nombre de mines affichées en fonction de la taille de l'écran
 
 struct ScoreboardView: View {
     @ObservedObject private var scoreViewModel = ScoreViewModel()

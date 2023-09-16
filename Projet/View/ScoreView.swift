@@ -11,8 +11,10 @@ struct ScoreView: View {
     @State var score: Score
     
     var body: some View {
-        HStack {
-            Text("\(score.name) le \(formatDate(unixDate: score.createdAt)) : fini en \(score.score) secondes")
+        VStack {
+            Text("\(score.name) le \(formatDate(unixDate: score.createdAt))")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("\(score.score) sec")
         }
     }
     
@@ -21,5 +23,9 @@ struct ScoreView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d/MM/y"
         return dateFormatter.string(from: date)
+    }
+    
+    func secondToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 }
