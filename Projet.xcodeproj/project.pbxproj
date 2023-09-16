@@ -13,8 +13,9 @@
 		D822ADEB2AB5918B003FA241 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822ADEA2AB5918B003FA241 /* Meme.swift */; };
 		D822ADED2AB59532003FA241 /* MemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822ADEC2AB59532003FA241 /* MemeViewModel.swift */; };
 		D822ADEF2AB59579003FA241 /* RandomMemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822ADEE2AB59579003FA241 /* RandomMemeView.swift */; };
-		D833DD1C2AB44CFE009C915B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833DD1B2AB44CFE009C915B /* ContentView.swift */; };
-		D833DD212AB49DF3009C915B /* DifficultyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833DD202AB49DF3009C915B /* DifficultyPicker.swift */; };
+		D822ADF12AB5A2AB003FA241 /* ScoreboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822ADF02AB5A2AB003FA241 /* ScoreboardView.swift */; };
+		D833DD1C2AB44CFE009C915B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833DD1B2AB44CFE009C915B /* GameView.swift */; };
+		D833DD212AB49DF3009C915B /* DifficultyPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833DD202AB49DF3009C915B /* DifficultyPickerView.swift */; };
 		D8505A5B2AAB45B80088D147 /* ProjetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A5A2AAB45B80088D147 /* ProjetApp.swift */; };
 		D8505A5D2AAB45B80088D147 /* MinesweeperGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8505A5C2AAB45B80088D147 /* MinesweeperGridView.swift */; };
 		D8505A5F2AAB45B90088D147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8505A5E2AAB45B90088D147 /* Assets.xcassets */; };
@@ -50,8 +51,9 @@
 		D822ADEA2AB5918B003FA241 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		D822ADEC2AB59532003FA241 /* MemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeViewModel.swift; sourceTree = "<group>"; };
 		D822ADEE2AB59579003FA241 /* RandomMemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMemeView.swift; sourceTree = "<group>"; };
-		D833DD1B2AB44CFE009C915B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D833DD202AB49DF3009C915B /* DifficultyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyPicker.swift; sourceTree = "<group>"; };
+		D822ADF02AB5A2AB003FA241 /* ScoreboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardView.swift; sourceTree = "<group>"; };
+		D833DD1B2AB44CFE009C915B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		D833DD202AB49DF3009C915B /* DifficultyPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyPickerView.swift; sourceTree = "<group>"; };
 		D8505A572AAB45B80088D147 /* Projet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8505A5A2AAB45B80088D147 /* ProjetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetApp.swift; sourceTree = "<group>"; };
 		D8505A5C2AAB45B80088D147 /* MinesweeperGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperGridView.swift; sourceTree = "<group>"; };
@@ -166,11 +168,12 @@
 			children = (
 				D8505A5C2AAB45B80088D147 /* MinesweeperGridView.swift */,
 				D8505A882AAB643F0088D147 /* MinesweeperCellView.swift */,
-				D833DD1B2AB44CFE009C915B /* ContentView.swift */,
-				D833DD202AB49DF3009C915B /* DifficultyPicker.swift */,
+				D833DD1B2AB44CFE009C915B /* GameView.swift */,
+				D833DD202AB49DF3009C915B /* DifficultyPickerView.swift */,
 				F976A8462AB49CE900651D24 /* LooseView.swift */,
 				D822ADE52AB58C28003FA241 /* VictoryView.swift */,
 				D822ADEE2AB59579003FA241 /* RandomMemeView.swift */,
+				D822ADF02AB5A2AB003FA241 /* ScoreboardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,15 +328,16 @@
 			files = (
 				D8505A5D2AAB45B80088D147 /* MinesweeperGridView.swift in Sources */,
 				D8505A892AAB643F0088D147 /* MinesweeperCellView.swift in Sources */,
-				D833DD212AB49DF3009C915B /* DifficultyPicker.swift in Sources */,
+				D833DD212AB49DF3009C915B /* DifficultyPickerView.swift in Sources */,
 				D822ADEF2AB59579003FA241 /* RandomMemeView.swift in Sources */,
 				D822ADE62AB58C28003FA241 /* VictoryView.swift in Sources */,
 				F976A8472AB49CE900651D24 /* LooseView.swift in Sources */,
-				D833DD1C2AB44CFE009C915B /* ContentView.swift in Sources */,
+				D833DD1C2AB44CFE009C915B /* GameView.swift in Sources */,
 				D822ADEB2AB5918B003FA241 /* Meme.swift in Sources */,
 				D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */,
 				D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */,
 				D822ADED2AB59532003FA241 /* MemeViewModel.swift in Sources */,
+				D822ADF12AB5A2AB003FA241 /* ScoreboardView.swift in Sources */,
 				D8505A5B2AAB45B80088D147 /* ProjetApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

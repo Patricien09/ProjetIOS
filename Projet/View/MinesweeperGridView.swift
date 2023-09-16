@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MinesweeperGridView.swift
 //  Projet
 //
 //  Created by Tom Rouillon on 9/8/23.
