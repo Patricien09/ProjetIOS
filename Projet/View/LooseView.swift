@@ -2,23 +2,19 @@
 //  VictoryView.swift
 //  Projet
 //
-//  Created by Tom Rouillon on 9/16/23.
+//  Created by Lucas Marchal on 9/15/23.
 //
 
 import SwiftUI
 
-struct VictoryView: View {
-    @State var time: String
-    
+struct LooseView: View {
     var body: some View {
         VStack {
-            Text("Victoire ! 👍")
-                .padding()
+            Text("Défaite 🥶")
                 .font(.headline)
-            Text("Vous avez battu le démineur en \(time) secondes")
+            Text("Réessayez en changeant de difficulté si c'est trop dur pour vous")
                 .padding()
                 .multilineTextAlignment(.center)
-//            TextField("Rentrez votre nom pour l'enregistrer de le tableau des scores")
         }
         .frame(width: 300, height: 200)
         .background(Color.white)

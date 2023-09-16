@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupView
 
 struct ContentView: View {
     @StateObject var grid = MinesweeperGrid(mineRate: 0.12, width: 10, height: 16)
@@ -13,6 +14,9 @@ struct ContentView: View {
     @State private var timeElapsed: String = "0.0"
     @State private var timer: Timer? = nil
     @State private var selectedDifficulty: Difficulty = .inter
+    
+    @State var showingVictoryPopup: Bool = false
+    @State var showingLoosePopup: Bool = false
     
     var body: some View {
         VStack {
@@ -22,7 +26,7 @@ struct ContentView: View {
             
             DifficultyPickerView(selectedDifficulty: $selectedDifficulty)
             .onChange(of: selectedDifficulty) { test in
-                self.resetGame()
+                resetGame()
                 grid.setMineRate(newMineRate: selectedDifficulty.rawValue)
             }
             
@@ -30,13 +34,39 @@ struct ContentView: View {
                 .environmentObject(grid)
                 .onChange(of: grid.alreadyClicked) { isFirstClick in
                     if (isFirstClick) {
-                        self.startTimer()
+                        startTimer()
                     }
+                }
+                .onChange(of: grid.won) { didWon in
+                    stopTimer()
+                    showingVictoryPopup = didWon
+                }
+                .onChange(of: grid.loose) { didLoose in
+                    stopTimer()
+                    showingLoosePopup = didLoose
                 }
             
             Button(action: resetGame) {
                 Text("Recommencer")
             }
+        }
+        
+        .popup(isPresented: $showingLoosePopup) {
+            LooseView()
+        } customize: {
+            $0
+                .isOpaque(true)
+                .closeOnTapOutside(true)
+                .backgroundColor(.gray.opacity(0.5))
+        }
+        
+        .popup(isPresented: $showingVictoryPopup){
+            VictoryView(time: timeElapsed)
+        } customize: {
+            $0
+                .isOpaque(true)
+                .closeOnTapOutside(true)
+                .backgroundColor(.gray.opacity(0.5))
         }
     }
     
@@ -55,7 +85,7 @@ struct ContentView: View {
     func resetGame() -> Void {
         grid.reset()
         timeElapsed = "0.0"
-        self.stopTimer()
+        stopTimer()
     }
 }
 

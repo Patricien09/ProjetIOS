@@ -11,6 +11,8 @@ class MinesweeperGrid: ObservableObject {
     @Published var grid: [[MinesweeperCell]]
     @Published var alreadyClicked: Bool = false
     @Published var nbMines: Int = 0
+    @Published var won: Bool = false
+    @Published var loose: Bool = false
     private var mineRate: Float
     private var width: Int
     private var height: Int
@@ -109,9 +111,11 @@ class MinesweeperGrid: ObservableObject {
      * C'est ici que l'on gère également la victoire ou la défaite
      */
     func clickCell(cell: MinesweeperCell) {
+        if (self.loose || self.won) { return }
         if (alreadyClicked) {
             // Fin de la partie quand l'utilisateur clique sur une mine et qu'il n'y a pas de flag ou question mark sur la cellule
             if (cell.getIsMine() && cell.getState() == .empty) {
+                self.loose = true
                 self.revealAllMines()
                 print("Looser")
                 return
@@ -171,12 +175,12 @@ class MinesweeperGrid: ObservableObject {
      * Pour cela, cette fonction regarde si toutes les cases contenant des mines ont été flag
      * Il est aussi possible de gagner en découvrant toutes les cases ne contenant pas de mine, donc possible sans placer de drapeaux
      */
-    func isVictory() -> Bool {
+    func checkVictory() -> Void {
         if(self.nbMines == 0) {
             for mine in mines {
                 if(mine.getState() != .flag)
                 {
-                    return false
+                    return
                 }
             }
         }
@@ -187,18 +191,12 @@ class MinesweeperGrid: ObservableObject {
                     // Si la cellule n'est pas une mine et n'a pas été cliquée
                     if(!cell.getIsMine() && !cell.getClicked())
                     {
-                        return false
+                        return
                     }
                 }
             }
         }
-        return true
-    }
-    
-    func checkVictory() -> Void {
-        if (self.isVictory()) {
-            self.victoryScreen()
-        }
+        self.won = true
     }
     
     /**
@@ -218,6 +216,8 @@ class MinesweeperGrid: ObservableObject {
         self.nbMines = 0
         self.mines = [MinesweeperCell]()
         self.alreadyClicked = false
+        self.won = false
+        self.loose = false
     }
     
     /**
@@ -231,10 +231,6 @@ class MinesweeperGrid: ObservableObject {
     
     func getNbMines() -> Int {
         return self.nbMines
-    }
-    
-    func victoryScreen() -> Void {
-        VictoryView()
     }
     
     func getGrid() ->[[MinesweeperCell]] {
