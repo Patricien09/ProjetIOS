@@ -36,7 +36,7 @@ struct MinesweeperCellView: View {
     }
     
     func longTouch() {
-        grid.flagCell(cell: cell)
+        grid.handleClick(cell: cell)
     }
     
     func getImageName(cell: MinesweeperCell) -> String {

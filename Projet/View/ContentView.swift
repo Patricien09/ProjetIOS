@@ -33,11 +33,34 @@ struct ContentView: View {
                         self.startTimer()
                     }
                 }
+            Button(action: {}) {
+                Image(getClickTypeImageName())
+                    .onTapGesture {
+                        changeClickType()
+                    }
+            }
             
             Button(action: resetGame) {
                 Text("Recommencer")
             }
         }
+    }
+    
+    func changeClickType() {
+        grid.changeClickType()
+    }
+    
+    func getClickTypeImageName() -> String {
+        var imageName = ""
+        switch grid.getClickType() {
+            case .empty:
+                imageName = "normal"
+            case .flag:
+                imageName = "flag"
+            case .questionMark:
+                imageName = "question_mark"
+        }
+        return imageName
     }
     
     func startTimer() {
