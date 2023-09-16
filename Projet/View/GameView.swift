@@ -70,7 +70,7 @@ struct GameView: View {
                     .backgroundColor(.gray.opacity(0.5))
             }
         }
-        .navigationTitle("Accueil")
+        .navigationBarTitle("Démineur")
     }
     
     func startTimer() {

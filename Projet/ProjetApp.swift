@@ -44,6 +44,8 @@ struct ProjetApp: App {
                         .cornerRadius(10.0)
                     }
                 }
+                .navigationBarTitle("Accueil")
+                .toolbar(.hidden, for: .automatic)
             }
         }
     }
