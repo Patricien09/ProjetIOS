@@ -126,6 +126,17 @@ class MinesweeperGrid: ObservableObject {
         self.checkVictory()
     }
     
+    func discoverCells(cell: MinesweeperCell) {
+        if (cell.getNoNeighboursMines() == self.getNumberOfFlaggedNeighbours(cell: cell)) {
+            var neighbours = self.getCellNeighbours(cell: cell)
+            for neighbour in neighbours {
+                if(neighbour.getState() != .flag) {
+                    self.clickCell(cell: neighbour)
+                }
+            }
+        }
+    }
+    
     /**
      * Fonction appelée lors d'un appui long
      * Change le state de la cellule en fonction de l'état précédent
@@ -145,6 +156,18 @@ class MinesweeperGrid: ObservableObject {
         self.nbMines -= 1
         cell.setState(newState: .flag)
         self.checkVictory()
+    }
+    
+    func getNumberOfFlaggedNeighbours (cell: MinesweeperCell) -> Int
+    {
+        var neighbours = self.getCellNeighbours(cell: cell)
+        var nbFlag = 0
+        for neighbour in neighbours {
+            if(neighbour.getState() == .flag) {
+                nbFlag += 1
+            }
+        }
+        return nbFlag
     }
     
     /**
