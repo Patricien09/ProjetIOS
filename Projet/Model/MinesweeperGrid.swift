@@ -133,6 +133,10 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Gère l'appui sur une cellule découverte
+     * Si parmis ses voisins il y a autant de cellules flag que de mines voisines, on découvre ceux qui ne sont pas flag
+     */
     func discoverCells(cell: MinesweeperCell) {
         if (cell.getNoNeighboursMines() == self.getNumberOfFlaggedNeighbours(cell: cell)) {
             let neighbours = self.getCellNeighbours(cell: cell)
@@ -144,6 +148,9 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Gère le type de clic grâce au bouton situé en dessous de la grille
+     */
     func changeClickType() {
         if(self.alreadyClicked)
         {
@@ -159,8 +166,7 @@ class MinesweeperGrid: ObservableObject {
     }
     
     /**
-     * Fonction appelée lors d'un appui long
-     * Change le state de la cellule en fonction de l'état précédent
+     * Fonction servant à gérer le clic en fonction du type de clic (empty, flag ou questionMark)
      */
     func handleClick(cell: MinesweeperCell) -> Void {
         if(cell.getClicked()) {
@@ -168,19 +174,7 @@ class MinesweeperGrid: ObservableObject {
         }
         if(self.clickType == .empty) {
 //            Si le clickType est empty
-            if(cell.getState() == .flag) {
-                // et la cellule est flag, on la passe en questionMark et incrémentation nbMines
-                self.nbMines += 1
-                cell.setState(newState: .questionMark)
-                return
-            } else if(cell.getState() == .questionMark) {
-                // et la cellule est en questionMark, on la passe en empty
-                cell.setState(newState: .empty)
-                return
-            }
-            // sinon (la cellule est empty), on la flag et décrémentation nbMines
-            self.nbMines -= 1
-            cell.setState(newState: .flag)
+            handleEmptyClick(cell: cell)
             self.checkVictory()
         }
         else if(self.clickType == .flag) {
@@ -215,6 +209,29 @@ class MinesweeperGrid: ObservableObject {
         }
     }
     
+    /**
+     * Fonction servant à gérer le type de click empty
+     * Change le state de la cellule en fonction de l'état précédent
+     */
+    func handleEmptyClick (cell: MinesweeperCell) {
+        if(cell.getState() == .flag) {
+            // Si la cellule est flag, on la passe en questionMark et incrémentation nbMines
+            self.nbMines += 1
+            cell.setState(newState: .questionMark)
+            return
+        } else if(cell.getState() == .questionMark) {
+            // Si la cellule est en questionMark, on la passe en empty
+            cell.setState(newState: .empty)
+            return
+        }
+        // sinon (la cellule est empty), on la flag et décrémentation nbMines
+        self.nbMines -= 1
+        cell.setState(newState: .flag)
+    }
+    
+    /**
+     * renvoi le nombre de cellules voisines qui sont flag
+     */
     func getNumberOfFlaggedNeighbours (cell: MinesweeperCell) -> Int
     {
         let neighbours = self.getCellNeighbours(cell: cell)
@@ -229,7 +246,7 @@ class MinesweeperGrid: ObservableObject {
     
     /**
      * Permet de propager le click d'une cellule à ses voisines et ainsi de suite
-     * S'arrête quand le celulle à déjà été cliquée ou que le nombre de mines aux alentours et différent de 0
+     * S'arrête quand le celulle à déjà été cliquée ou que le nombre de mines aux alentours est différent de 0
      */
     func handleClickPropagation(cell: MinesweeperCell) -> Void {
         // Si la cellule contient un flag ou question mark, on ne fait rien
