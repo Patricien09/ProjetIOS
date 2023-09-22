@@ -336,6 +336,9 @@ class MinesweeperGrid: ObservableObject {
     func getCell(line: Int, col: Int) -> MinesweeperCell {
         return grid[line][col]
     }
+    func getMines() -> [MinesweeperCell] {
+        return self.mines
+    }
     
     func setMineRate(newMineRate: Float) -> Void {
         self.mineRate = newMineRate
