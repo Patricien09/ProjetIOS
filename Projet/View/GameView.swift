@@ -47,6 +47,13 @@ struct GameView: View {
                         showingLoosePopup = didLoose
                     }
                 
+                Button(action: {}) {
+                    Image(getClickTypeImageName())
+                        .onTapGesture {
+                            changeClickType()
+                        }
+                }
+                
                 Button(action: resetGame) {
                     Text("Recommencer")
                 }
@@ -71,6 +78,23 @@ struct GameView: View {
             }
         }
         .navigationBarTitle("Démineur")
+    }
+    
+    func changeClickType() {
+        grid.changeClickType()
+    }
+    
+    func getClickTypeImageName() -> String {
+        var imageName = ""
+        switch grid.getClickType() {
+            case .empty:
+                imageName = "normal"
+            case .flag:
+                imageName = "flag"
+            case .questionMark:
+                imageName = "question_mark"
+        }
+        return imageName
     }
     
     func startTimer() {

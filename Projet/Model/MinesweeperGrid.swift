@@ -124,6 +124,9 @@ class MinesweeperGrid: ObservableObject {
                 } else {
                     self.handleClickPropagation(cell: cell)
                 }
+            } else {
+                alreadyClicked = true
+                self.setMines(baseCell: cell)
                 self.handleClickPropagation(cell: cell)
             }
             self.checkVictory()

@@ -26,11 +26,15 @@ struct MinesweeperCellView: View {
     }
     
     func cellTouched() {
-        grid.clickCell(cell: cell)
+        if(cell.getClicked()) {
+            grid.discoverCells(cell: cell)
+        } else {
+            grid.clickCell(cell: cell)
+        }
     }
     
     func longTouch() {
-        grid.flagCell(cell: cell)
+        grid.handleClick(cell: cell)
     }
     
     func getImageName(cell: MinesweeperCell) -> String {
