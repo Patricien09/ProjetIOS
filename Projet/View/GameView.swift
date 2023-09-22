@@ -74,6 +74,7 @@ struct GameView: View {
                 $0
                     .isOpaque(true)
                     .closeOnTapOutside(true)
+                    .closeOnTap(false)
                     .backgroundColor(.gray.opacity(0.5))
             }
         }
@@ -113,11 +114,5 @@ struct GameView: View {
         grid.reset()
         timeElapsed = "0.0"
         stopTimer()
-    }
-}
-
-struct GameView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameView()
     }
 }

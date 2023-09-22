@@ -7,21 +7,20 @@
 
 import SwiftUI
 
-//TODO faire en sorte que l'on puisse ajouter à la fin d'une partie gagnante
-// Changer le nombre de mines affichées en fonction de la taille de l'écran
-
 struct ScoreboardView: View {
     @ObservedObject private var scoreViewModel = ScoreViewModel()
-    private let podiumColor: [Color] = [Color(red: 255, green: 215, blue: 0), Color(red: 192, green: 192, blue: 192), Color(red: 255, green: 87, blue: 51)]
+    private let podiumColor: [Color] = [Color(red: 1, green: 0.84, blue: 0), Color(red: 0.75, green: 0.75, blue: 0.75), Color(red: 0.7, green: 0.45, blue: 0.37)]
     
     var body: some View {
         NavigationView {
             List {
-                let scores = getScores()
-                ForEach(0..<scores.count) { index in
-                    ScoreView(score: scores[index])
+                ForEach(Array(getScores().enumerated()), id: \.offset) { index, element in
+                    ScoreView(score: element)
                         .background(getColorFromIndex(index: index))
                 }
+            }
+            .onAppear {
+                scoreViewModel.fetchScores()
             }
         }
         .navigationBarTitle("Tableau des scores")
@@ -36,10 +35,8 @@ struct ScoreboardView: View {
     
     func getColorFromIndex(index: Int) -> Color {
         if (index > podiumColor.count - 1) {
-            print(index)
             return Color.white
         }
-        print(podiumColor[index])
         return podiumColor[index]
     }
 }

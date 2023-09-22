@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81EF32A2ABDBA220041D05C /* SendScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81EF3292ABDBA220041D05C /* SendScoreView.swift */; };
 		D822ADE42AB583A0003FA241 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D822ADE32AB583A0003FA241 /* PopupView */; };
 		D822ADE62AB58C28003FA241 /* VictoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822ADE52AB58C28003FA241 /* VictoryView.swift */; };
 		D822ADE92AB5916D003FA241 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D822ADE82AB5916D003FA241 /* Alamofire */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D81EF3292ABDBA220041D05C /* SendScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendScoreView.swift; sourceTree = "<group>"; };
 		D822ADE52AB58C28003FA241 /* VictoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryView.swift; sourceTree = "<group>"; };
 		D822ADEA2AB5918B003FA241 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		D822ADEC2AB59532003FA241 /* MemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeViewModel.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				D822ADEE2AB59579003FA241 /* RandomMemeView.swift */,
 				D822ADF02AB5A2AB003FA241 /* ScoreboardView.swift */,
 				D822ADF62AB5A9CE003FA241 /* ScoreView.swift */,
+				D81EF3292ABDBA220041D05C /* SendScoreView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				D822ADEB2AB5918B003FA241 /* Meme.swift in Sources */,
 				D8505A852AAB52FC0088D147 /* MinesweeperCell.swift in Sources */,
 				D8505A872AAB56890088D147 /* MinesweeperGrid.swift in Sources */,
+				D81EF32A2ABDBA220041D05C /* SendScoreView.swift in Sources */,
 				D822ADED2AB59532003FA241 /* MemeViewModel.swift in Sources */,
 				D822ADF12AB5A2AB003FA241 /* ScoreboardView.swift in Sources */,
 				D8505A5B2AAB45B80088D147 /* ProjetApp.swift in Sources */,

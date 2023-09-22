@@ -19,7 +19,7 @@ struct VictoryView: View {
             Text("Vous avez battu le démineur en \(time) secondes")
                 .padding()
                 .multilineTextAlignment(.center)
-//            TextField("Rentrez votre nom pour l'enregistrer de le tableau des scores")
+            SendScoreView(time: time)
         }
         .frame(width: 300, height: 500)
         .background(Color.white)
