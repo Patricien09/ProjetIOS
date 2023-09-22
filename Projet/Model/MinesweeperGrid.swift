@@ -340,4 +340,10 @@ class MinesweeperGrid: ObservableObject {
     func setMineRate(newMineRate: Float) -> Void {
         self.mineRate = newMineRate
     }
+    func setDimension(width: Int, height: Int) -> Void {
+        self.reset()
+        self.width = width
+        self.height = height
+        self.constructGrid()
+    }
 }

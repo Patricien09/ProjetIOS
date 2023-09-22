@@ -9,7 +9,7 @@ import SwiftUI
 import PopupView
 
 struct GameView: View {
-    @StateObject var grid = MinesweeperGrid(mineRate: 0.12, width: 10, height: 16)
+    @StateObject var grid = MinesweeperGrid(mineRate: Difficulty.inter.rawValue, width: 10, height: 16)
     @State private var startDate = Date()
     @State private var timeElapsed: String = "0.0"
     @State private var timer: Timer? = nil

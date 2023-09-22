@@ -10,7 +10,6 @@ import SwiftUI
 struct MinesweeperCellView: View {
     @EnvironmentObject var grid: MinesweeperGrid
     @ObservedObject public var cell: MinesweeperCell
-    @State private var cellWidth = CGFloat(30)
     
     var body: some View {
         Button(action: {}) {
@@ -22,7 +21,7 @@ struct MinesweeperCellView: View {
                     longTouch()
                 }
         }
-        .frame(width: cellWidth, height: cellWidth)
+        .frame(width: MinesweeperCell.cellWidth, height: MinesweeperCell.cellWidth)
     }
     
     func cellTouched() {

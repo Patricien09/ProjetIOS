@@ -24,6 +24,7 @@ class MinesweeperCell: ObservableObject, Comparable {
     private var noNeighboursMines: Int
     private var line: Int
     private var col: Int
+    static let cellWidth: CGFloat = 30
     
     init(isMine: Bool, clicked: Bool, state: CellState, noNeighboursMines: Int, line: Int, col: Int) {
         self.isMine = isMine
