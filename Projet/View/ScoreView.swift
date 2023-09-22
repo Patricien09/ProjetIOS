@@ -12,9 +12,10 @@ struct ScoreView: View {
     
     var body: some View {
         VStack {
+            let scoreTime = secondToHoursMinutesSeconds(Int(score.score))
             Text("\(score.name) le \(formatDate(unixDate: score.createdAt))")
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text("\(score.score) sec")
+            Text("\(scoreTime.0)h:\(scoreTime.1)m:\(scoreTime.2)s")
         }
     }
     

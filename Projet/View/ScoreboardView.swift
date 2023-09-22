@@ -12,12 +12,15 @@ import SwiftUI
 
 struct ScoreboardView: View {
     @ObservedObject private var scoreViewModel = ScoreViewModel()
+    private let podiumColor: [Color] = [Color(red: 255, green: 215, blue: 0), Color(red: 192, green: 192, blue: 192), Color(red: 255, green: 87, blue: 51)]
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(getScores()) { score in
-                    ScoreView(score: score)
+                let scores = getScores()
+                ForEach(0..<scores.count) { index in
+                    ScoreView(score: scores[index])
+                        .background(getColorFromIndex(index: index))
                 }
             }
         }
@@ -29,5 +32,14 @@ struct ScoreboardView: View {
             return lhs.score < rhs.score
         })
         return sortedScore
+    }
+    
+    func getColorFromIndex(index: Int) -> Color {
+        if (index > podiumColor.count - 1) {
+            print(index)
+            return Color.white
+        }
+        print(podiumColor[index])
+        return podiumColor[index]
     }
 }
