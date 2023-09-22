@@ -22,11 +22,18 @@ final class ProjetUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testNavigation() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
         
+        app.buttons["Nouvelle partie"].tap()
+        app.navigationBars["Démineur"].buttons["Accueil"].tap()
+        app.buttons["Tableau des scores"].tap()
+        app.navigationBars["Tableau des scores"].buttons["Accueil"].tap()
+    }
+    
+    func testGrille() throws {
         
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
