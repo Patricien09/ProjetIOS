@@ -10,7 +10,7 @@ import SwiftUI
 enum Difficulty: Float, Identifiable {
     case easy = 0.09
     case inter = 0.17
-    case hard = 0.34
+    case hard = 0.28
     var id: Self { self }
 }
 
